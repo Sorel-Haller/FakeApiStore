@@ -1,3 +1,6 @@
+const productContainer = document.querySelector('.products');
+
+
 const BASE_URL = `https://fakestoreapi.com`;
 let products = [];
 let categories = [];
@@ -19,19 +22,12 @@ const fetchProductsByCategory = async (category) => {
 products = await fetchAllProducts();
 categories = await fetchAllCategories();
 
-const showAllProducts = () => {
-    products.forEach((product) => {
-        renderProductCard(product);
-    })
-};
 
 const renderProductCard = (product) => {
     const articleElement = document.createElement("article");
 
-
     const productImage = document.createElement("img");
     productImage.src = product.image;
-
 
     const h3Element = document.createElement("h3");
     h3Element.innerText = product.title;
@@ -42,5 +38,13 @@ const renderProductCard = (product) => {
     articleElement.appendChild(productImage);
     articleElement.appendChild(h3Element);
     articleElement.appendChild(priceElement);
-
 };
+
+const showAllProducts = () => {
+    products.forEach((product) => {
+        renderProductCard(product);
+        productContainer.appendChild(productCard);
+    })
+};
+
+showAllProducts();
