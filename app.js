@@ -71,7 +71,11 @@ const showAllProducts = () => {
 showAllCategories();
 showAllProducts();
 
-categoryContainer.addEventListener('click', (event) => {
+categoryContainer.addEventListener('click',async (event) => {
     if(event.target.nodeName !== "BUTTON") return;
-    console.log(event);
+
+    console.log(event.target.innerText)
+    products = await fetchProductByCategory(event.target.innerText);
+    productContainer.innerHTML = '';
+    showAllProducts();
 });
