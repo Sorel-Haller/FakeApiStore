@@ -1,4 +1,5 @@
 const productContainer = document.querySelector('.products');
+const categoryContainer = document.querySelector('.categories');
 
 const BASE_URL = 'https://fakestoreapi.com';
 let products = [];
@@ -9,7 +10,7 @@ const fetchProduct = async ()=> {
     return data;
 };
 
-const fetchAllGategories = async () => {
+const fetchAllCategories = async () => {
     const response = await fetch(`${BASE_URL}/products/categories`);
     const data = await response.json();
     return data;
@@ -21,7 +22,7 @@ const fetchProductByCategory = async (category) =>{
 };
 
 products = await fetchProduct();
-categories = await fetchAllGategories();
+categories = await fetchAllCategories();
 
 const renderProductCard = (product) => {
     const articleElement = document.createElement('article');
@@ -43,6 +44,22 @@ const renderProductCard = (product) => {
     return articleElement;
 };
 
+const renderCategoryButton = (category) => {
+    const buttonElement = document.createElement('button');
+    buttonElement.innerText = category;
+    buttonElement.classList.add('category-button')
+
+    return buttonElement;
+
+};
+
+const showAllCategories = () => {
+    categories.forEach((category) => {
+        const button = renderCategoryButton(category);
+        categoryContainer.appendChild(button);
+    });
+};
+
 const showAllProducts = () => {
     products.forEach((product) => {
         const productCard = renderProductCard(product);
@@ -50,4 +67,11 @@ const showAllProducts = () => {
     });
 };
 
+
+showAllCategories();
 showAllProducts();
+
+categoryContainer.addEventListener('click', (event) => {
+    if(event.target.nodeName !== "BUTTON") return;
+    console.log(event);
+});
